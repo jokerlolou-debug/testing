@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-image: 
+        linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/8/8a/Royal_Malaysian_Police.svg');
+    background-size: cover, 40%;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+header {
+    background: #f0f0f0;
+    padding: 50px 30px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header h1 {
+    color: #667eea;
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+.page {
+    display: none;
+    background: #f0f0f0;
+    padding: 40px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page.active {
+    display: block;
+}
+
+.form-container h2,
+.dashboard-container h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.toggle-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.toggle-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.toggle-link a:hover {
+    text-decoration: underline;
+}
+
+.user-info {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.user-info p {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.user-info p:last-child {
+    margin-bottom: 0;
+}
+
+.user-info strong {
+    color: #667eea;
+}
+
+.dashboard-container {
+    text-align: center;
+}
+
+.tracking-container {
+    text-align: center;
+}
+
+.tracking-container form,
+.tracking-container table {
+    text-align: left;
+}
+
+#recordsContainer {
+    text-align: left;
+}
+
+#recordsContainer h3 {
+    text-align: center;
+}
+
+.record-card {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .page {
+        padding: 30px 20px;
+    }
+}

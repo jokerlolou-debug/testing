@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJEK IP WARDEN</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="modern-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1 class="main-title">
+                            <span class="title-gradient">IP WARDEN</span>
+                            <div class="title-underline"></div>
+                        </h1>
+                        <p class="subtitle-primary">
+                            <i class="fas fa-building"></i> IBU PEJABAT POLIS DAERAH YAN, KEDAH
+                        </p>
+                        <p class="subtitle-secondary">
+                            <i class="fas fa-folder-open"></i> SISTEM PENGURUSAN KERTAS SIASATAN
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Halaman Log Masuk -->
+        <div id="loginPage" class="page active">
+            <div class="welcome-banner">
+                <div class="banner-icon">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <h2 class="banner-title">Sistem Pengurusan Kertas Siasatan</h2>
+                <p class="banner-subtitle">Platform digital untuk pengurusan dan tracking kertas siasatan dengan efisien</p>
+            </div>
+            
+            <div class="login-grid">
+                <!-- Log Masuk (Kiri) -->
+                <div class="modern-card login-card">
+                    <div class="card-icon login-icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <h2 class="card-title">Log Masuk</h2>
+                    <p class="card-description">Akses akaun anda untuk menguruskan kertas siasatan</p>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginBadan">
+                                <i class="fas fa-id-badge"></i> No. Badan Pengguna
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" id="loginBadan" name="loginBadan" placeholder="Contoh: 123456" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Log Masuk
+                        </button>
+                    </form>
+                    <p class="toggle-link">
+                        Belum daftar? <a href="#" id="showRegister"><i class="fas fa-user-plus"></i> Daftar Sekarang</a>
+                    </p>
+                </div>
+                
+                <!-- Cari Kertas Siasatan (Kanan) -->
+                <div class="modern-card search-card">
+                    <div class="card-icon search-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h2 class="card-title">Cari Kertas Siasatan</h2>
+                    <p class="card-description">Imbas QR code untuk semak status dan pergerakan kertas siasatan</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <div id="qrcode" style="display: inline-block; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);"></div>
+                        <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> Imbas QR code dengan telefon anda
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="searchResult" class="search-result-container"></div>
+        </div>
+
+        <!-- Modal Popup untuk Input No. Badan -->
+        <div id="searchModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" id="closeModal">&times;</span>
+                <div class="modal-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="modal-title">Cari Kertas Siasatan</h2>
+                <p class="modal-description">Masukkan No. Badan untuk mencari kertas siasatan</p>
+                <form id="modalSearchForm">
+                    <div class="form-group">
+                        <label for="modalSearchKS">
+                            <i class="fas fa-id-badge"></i> No. Badan
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="modalSearchKS" name="modalSearchKS" placeholder="Masukkan No. Badan" required autofocus>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-search">
+                        <i class="fas fa-search"></i> Cari Sekarang
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Halaman Pendaftaran -->
+        <div id="registerPage" class="page">
+            <div class="form-container">
+                <h2>Daftar Pengguna Baru</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="namaPegawai">Nama Pegawai:</label>
+                        <input type="text" id="namaPegawai" name="namaPegawai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="noBadan">No. Badan:</label>
+                        <input type="text" id="noBadan" name="noBadan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bahagian">Bahagian:</label>
+                        <input type="text" id="bahagian" name="bahagian" required>
+                    </div>
+                    <button type="submit" class="btn">Daftar</button>
+                </form>
+                <p class="toggle-link">
+                    Sudah daftar? <a href="#" id="showLogin">Log Masuk</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Halaman Dashboard -->
+        <div id="dashboardPage" class="page">
+            <div class="dashboard-container">
+                <h2>Selamat Datang!</h2>
+                <div class="user-info" style="background: #93c5fd; padding: 20px; border-radius: 8px;">
+                    <p style="color: black;"><strong>Nama:</strong> <span id="displayNama" style="color: #c084fc; font-weight: bold;"></span></p>
+                    <p style="color: black;"><strong>No. Badan:</strong> <span id="displayBadan" style="color: #c084fc; font-weight: bold;"></span></p>
+                    <p style="color: black;"><strong>Bahagian:</strong> <span id="displayBahagian" style="color: #c084fc; font-weight: bold;"></span></p>
+                </div>
+                
+                <h2 style="margin-top: 40px; color: #667eea;">PERGERAKAN KERTAS SIASATAN</h2>
+                
+                <form id="siasatanForm" style="text-align: left; margin-top: 30px;">
+                    <div class="form-group">
+                        <label for="pegawaiPenyiasat">Pegawai Penyiasat:</label>
+                        <input type="text" id="pegawaiPenyiasat" name="pegawaiPenyiasat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="noKertasSiasatan">No. Kertas Siasatan:</label>
+                        <input type="text" id="noKertasSiasatan" name="noKertasSiasatan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="noReport">No. Report:</label>
+                        <input type="text" id="noReport" name="noReport" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seksyen">Seksyen:</label>
+                        <input type="text" id="seksyen" name="seksyen" required>
+                    </div>
+                    <button type="submit" class="btn">Simpan Rekod</button>
+                </form>
+                
+                <div id="recordsContainer" style="margin-top: 40px;">
+                    <h3 style="color: #333; margin-bottom: 20px;">Senarai Rekod Kertas Siasatan</h3>
+                    <div id="recordsList"></div>
+                </div>
+                
+                <button class="btn" id="logoutBtn" style="margin-top: 20px;">Log Keluar</button>
+            </div>
+        </div>
+
+        <!-- Halaman Tracking Pergerakan -->
+        <div id="trackingPage" class="page">
+            <div class="tracking-container">
+                <h2 style="color: #667eea;">Tracking Pergerakan Kertas Siasatan</h2>
+                
+                <div class="record-summary" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3 style="color: #333; margin-bottom: 15px;">Maklumat Kertas Siasatan</h3>
+                    <p><strong>No. Kertas Siasatan:</strong> <span id="trackingNoKS"></span></p>
+                    <p><strong>Pegawai Penyiasat:</strong> <span id="trackingPegawai"></span></p>
+                </div>
+
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #333; margin-bottom: 20px;">Tambah Pergerakan Baru</h3>
+                    <form id="trackingForm" style="text-align: left;">
+                        <div class="form-group">
+                            <label for="pergerakan">Pergerakan:</label>
+                            <input type="text" id="pergerakan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="io">IO:</label>
+                            <input type="text" id="io" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sio">SIO:</label>
+                            <input type="text" id="sio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ipk">IPK:</label>
+                            <input type="text" id="ipk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tpr">TPR:</label>
+                            <input type="text" id="tpr" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mahkamah">Mahkamah:</label>
+                            <input type="text" id="mahkamah" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kusFile">KUS/FILE:</label>
+                            <input type="text" id="kusFile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lainLain">Lain-lain:</label>
+                            <input type="text" id="lainLain">
+                        </div>
+                        <button type="submit" class="btn">Tambah Pergerakan</button>
+                    </form>
+                </div>
+
+                <div style="overflow-x: auto; margin: 30px 0;">
+                    <h3 style="color: #333; margin-bottom: 20px;">Jadual Pergerakan</h3>
+                    <table id="trackingTable" style="width: 100%; border-collapse: collapse; background: white;">
+                        <thead>
+                            <tr style="background: #667eea; color: white;">
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Pergerakan</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">IO</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">SIO</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">IPK</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">TPR</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Mahkamah</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">KUS/FILE</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Lain-lain</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: center;">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trackingTableBody">
+                            <tr>
+                                <td colspan="9" style="padding: 20px; text-align: center; color: #999;">Tiada pergerakan lagi.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="btn" id="backToDashboard" style="margin-top: 20px; background: #6c757d;">Kembali ke Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        .modern-header {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+            padding: 40px 20px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, #667eea15 25%, transparent 25%),
+                linear-gradient(-45deg, #764ba215 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #667eea15 75%),
+                linear-gradient(-45deg, transparent 75%, #764ba215 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            opacity: 0.3;
+            animation: slidePattern 20s linear infinite;
+        }
+        
+        @keyframes slidePattern {
+            0% { background-position: 0 0, 0 20px, 20px -20px, -20px 0px; }
+            100% { background-position: 40px 40px, 40px 60px, 60px 20px, 20px 40px; }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6); }
+        }
+        
+        .header-text {
+            text-align: center;
+        }
+        
+        .main-title {
+            margin: 0;
+            font-size: 3.5rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        .title-underline {
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
+            margin-top: 10px;
+            border-radius: 10px;
+            animation: expandLine 2s ease-in-out infinite;
+        }
+        
+        @keyframes expandLine {
+            0%, 100% { transform: scaleX(0.5); opacity: 0.5; }
+            50% { transform: scaleX(1); opacity: 1; }
+        }
+        
+        .subtitle-primary {
+            margin: 15px 0 5px 0;
+            font-size: 1.1rem;
+            color: #667eea;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .subtitle-secondary {
+            margin: 5px 0 0 0;
+            font-size: 0.95rem;
+            color: #764ba2;
+            font-weight: 600;
+        }
+        
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .banner-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .banner-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .banner-subtitle {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .login-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modern-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .modern-card:hover::before {
+            left: 100%;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+        
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .login-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .search-icon {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .card-description {
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group label i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn i {
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        .toggle-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .search-result-container {
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            text-align: center;
+            max-width: 1200px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .login-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modern-card {
+                padding: 30px 20px;
+            }
+            
+            .welcome-banner {
+                padding: 30px 20px;
+            }
+        }
+        
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 100%);
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideDown 0.4s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #999;
+            font-size: 35px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #667eea;
+            transform: rotate(90deg);
+        }
+        
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .modal-description {
+            color: #666;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        #qrcode {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #qrcode:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+        
+        #qrcode img {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</body>
+</html>
